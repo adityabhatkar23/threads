@@ -2,6 +2,7 @@ const express = require("express");
 const { body } = require("express-validator");
 
 const router = express.Router();
+
 const userController = require("../controllers/user.controllers");
 
 const authMiddleware = require("../middleware/auth.middleware");
@@ -10,11 +11,11 @@ router.post(
   "/register",
   [
     body("email").isEmail(),
-    // body("name").isLength({min:3}),
     body("password").isLength({ min: 8 }),
   ],
   userController.registerUser
 );
+
 router.post(
   "/login",
   [body("email").isEmail(), body("password").isLength({ min: 8 })],

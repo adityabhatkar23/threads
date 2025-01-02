@@ -2,7 +2,7 @@
 
 ## Overview 🔐📑🌐
 
-This document outlines the functionality of the `/register`, `/login`, and `/users/profile` endpoints. These endpoints facilitate user registration, authentication, and profile retrieval, respectively. All endpoints validate user input and issue JSON Web Tokens (JWT) upon successful operations. 🌐🔐📑
+This document outlines the functionality of the `/register`, `/login`, `/users/profile`, `/logout`, `/home`, and `/update-profile` endpoints. These endpoints facilitate user registration, authentication, profile retrieval, and management. All endpoints validate user input and issue JSON Web Tokens (JWT) upon successful operations. 🌐🔐📑
 
 ---
 
@@ -153,6 +153,141 @@ This document outlines the functionality of the `/register`, `/login`, and `/use
 
 ---
 
+### POST `/logout` 🔒📤🔑
+
+**Description**: This endpoint logs out the authenticated user by clearing the JWT token from the cookies. 📤🔑🔒
+
+#### Request 📥📙🔨
+
+- **Headers**:
+  - `Authorization`: Bearer token (JWT) required for authentication.
+
+#### Response 📦📢🔒
+
+- **Success (200 OK)**: 🌟🔐📓
+  - **Body**:
+
+    ```json
+    {
+        "message": "Successfully logged out"
+    }
+    ```
+
+- **Error (401 Unauthorized)**: ⚠️🔧🔨
+  - **Body**:
+
+    ```json
+    {
+        "message": "Authentication required"
+    }
+    ```
+
+---
+
+### GET `/home` 🌟🏠📢
+
+**Description**: Provides access to the home page for authenticated users, returning a welcome message and user details. 🏠📢🌟
+
+#### Request 📥🔒🔑
+
+- **Headers**:
+  - `Authorization`: Bearer token (JWT) required for authentication.
+
+#### Response 🔐📢🌟
+
+- **Success (200 OK)**: 🌟📃🔑
+  - **Body**:
+
+    ```json
+    {
+        "message": "Welcome to the home page!",
+        "user": {
+            "_id": "60d0fe4f5311236168a109ca",
+            "name": "John Doe",
+            "email": "johndoe@example.com",
+            "username": "johndoe_abc12",
+            "avatar": "https://api.dicebear.com/9.x/lorelei/svg"
+        }
+    }
+    ```
+
+- **Error (401 Unauthorized)**: ⚠️🔒📢
+  - **Body**:
+
+    ```json
+    {
+        "message": "Authentication required"
+    }
+    ```
+
+---
+
+### POST `/update-profile` 🔧📋🔑
+
+**Description**: Updates the profile information of the authenticated user. Only fields provided in the request body will be updated. 📋🔑🔧
+
+#### Request 📥🔐📢
+
+- **Headers**:
+  - `Authorization`: Bearer token (JWT) required for authentication.
+  - `Content-Type: application/json`
+
+- **Body**:
+  - `name` (string, optional): The user's full name, minimum 3 characters.
+  - `bio` (string, optional): A short biography, maximum 160 characters.
+  - `link` (string, optional): A personal or professional link.
+
+#### Example Request Body 🔧📢📦
+
+```json
+{
+    "name": "John Doe",
+    "bio": "Software Developer",
+    "link": "https://johndoe.dev"
+}
+```
+
+#### Response 🔒📓📏
+
+- **Success (200 OK)**: 🌟🔑📃
+  - **Body**:
+
+    ```json
+    {
+        "message": "Profile updated successfully",
+        "user": {
+            "_id": "60d0fe4f5311236168a109ca",
+            "name": "John Doe",
+            "email": "johndoe@example.com",
+            "username": "johndoe_abc12",
+            "avatar": "https://api.dicebear.com/9.x/lorelei/svg",
+            "bio": "Software Developer",
+            "link": "https://johndoe.dev"
+        },
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+    ```
+
+- **Error (401 Unauthorized)**: ⚠️🔐🔒
+  - **Body**:
+
+    ```json
+    {
+        "message": "Authentication required"
+    }
+    ```
+
+- **Error (400 Bad Request)**: ⚠️🔧🔨
+  - **Body**:
+
+    ```json
+    {
+        "message": "Profile update error: [error details]"
+    }
+    ```
+
+---
+
 ## Error Handling 🔧🏢📥
 
 ### Validation Errors 🏢🔧🔐
@@ -203,4 +338,4 @@ If an unexpected error occurs, the server responds with a `500 Internal Server E
 
 ---
 
-This documentation provides comprehensive details on the `/register`, `/login`, and `/users/profile` endpoints, including request and response formats, error handling, and security considerations. For further assistance, contact the API development team. 🌟🔐�
+This documentation provides comprehensive details on the `/register`, `/login`, `/users/profile`, `/logout`, `/home`, and `/update-profile` endpoints, including request and response formats, error handling, and security considerations. For further assistance, contact the API development team. 🌟🔐�

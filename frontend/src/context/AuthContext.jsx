@@ -46,12 +46,20 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(true);
   };
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    setToken(null);
-    setUser(null);
-    setIsAuthenticated(false);
-    delete axios.defaults.headers.common['Authorization'];
+  const logout = async () => {
+    try {
+      // Make a request to the server to handle logout
+      await axios.post('http://localhost:4000/logout', {}, { withCredentials: true });
+    } catch (error) {
+      console.error('Error during logout:', error);
+    } finally {
+      // Clear local storage and reset state
+      localStorage.removeItem('token');
+      setToken(null);
+      setUser(null);
+      setIsAuthenticated(false);
+      delete axios.defaults.headers.common['Authorization'];
+    }
   };
 
   return (

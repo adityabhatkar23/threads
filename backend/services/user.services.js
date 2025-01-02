@@ -7,6 +7,7 @@ module.exports.createUser = async ({
 	if ( !email || !password) {
 		throw new Error("All fields are required");
 	}
+	
 	const hash = crypto.createHash("sha256").update(email).digest("hex")
 	let username = email.split("@")[0]+"_"+ hash.substring(0, 5);
 
