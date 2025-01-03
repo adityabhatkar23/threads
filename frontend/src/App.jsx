@@ -1,27 +1,33 @@
 // import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import UserSignUp from './pages/UserSignup';
-import Home from './pages/Home';
-import { AuthProvider } from './context/AuthContext';
-import PrivateRoute from './components/PrivateRoute';
-import { useAuth } from './context/AuthContext';
-import UserLogin from './pages/UserLogin';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Onboarding from './pages/Onboarding';
-import CreateThread from './components/forms/CreateThread';
-import ThreadDetails from './pages/ThreadDetails';
+import Home from "./_root/pages/Home";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import PrivateRoute from "./components/PrivateRoute";
+
+import CreateThread from "./_root/pages/CreateThread";
+import ThreadDetails from "./_root/pages/ThreadDetails";
+import AuthLayout from "./_auth/AuthLayout";
+import UserLogin from "./_auth/forms/UserLogin";
+import Onboarding from "./_auth/forms/Onboarding";
+import UserSignUp from "./_auth/forms/UserSignup";
+import RootLayout from "./_root/RootLayout";
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
 
   return (
     <Routes>
-      <Route path="/" element={<UserLogin />} />
-      <Route path="/register" element={<UserSignUp />} />
-      <Route path="/onboarding" element={<Onboarding />} />
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<UserLogin />} />
+        <Route path="/register" element={<UserSignUp />} />
+        <Route path="/onboarding" element={<Onboarding />} />
+      </Route>
 
+
+      <Route element = {<RootLayout/>}>
       <Route
-        path="/home"
+        index
         element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <Home />
@@ -44,7 +50,11 @@ const AppRoutes = () => {
           </PrivateRoute>
         }
       />
+      
+      </Route>
     </Routes>
+
+      
   );
 };
 

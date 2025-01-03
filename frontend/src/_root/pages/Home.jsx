@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import axios from "axios";
-import Leftsidebar from "../components/shared/Leftsidebar";
-import Rightsidebar from "../components/shared/Rightsidebar";
-import Threadcard from "../components/cards/Threadcard";
+import Threadcard from "../../components/cards/Threadcard";
 
 const Home = () => {
   const [threads, setThreads] = useState([]);
@@ -23,14 +21,13 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex h-screen gap-4">
-      <Leftsidebar />
-
-      <section className="flex min-h-screen flex-1 flex-col items-center pb-10 pt-28 max-md:pb-32 sm:px-10 overflow-scroll overflow-x-hidden custom-scrollbar">
+    
+      
         <div className="w-full flex flex-col gap-8">
           <h1 className="font-bold text-3xl pt-6">All Threads </h1>
           <div className="threads-list flex gap-8 flex-col">
             {threads.map((thread) => (
+              
               <Threadcard
                 key={thread._id}
                 id={thread._id}
@@ -45,9 +42,8 @@ const Home = () => {
             ))}
           </div>
         </div>
-      </section>
-      <Rightsidebar />
-    </div>
+      
+   
   );
 };
 

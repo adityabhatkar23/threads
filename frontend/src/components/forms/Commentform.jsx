@@ -20,9 +20,9 @@ const Commentform = ({ threadId, currentUserImg, currentUserId }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/threads/create",
+        `http://localhost:4000/threads/${threadId}/comments`,
         {
-          text: data.thread,
+          text: data.comment,
         },
         {
           withCredentials: true,

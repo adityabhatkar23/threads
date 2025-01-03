@@ -1,13 +1,11 @@
 // import React from 'react';
-import Leftsidebar from "../shared/Leftsidebar";
-import Rightsidebar from "../shared/Rightsidebar";
+
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
 
 const CreateThread = () => {
-  const { user, logout } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -42,9 +40,8 @@ const CreateThread = () => {
   };
 
   return (
-    <div className="flex h-screen gap-4">
-      <Leftsidebar />
-      <section className="flex min-h-screen flex-1 flex-col items-centerpx-6 pb-10 pt-28 max-md:pb-32 sm:px-10">
+    <div className=" h-screen gap-4 w-full">
+     
         <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex gap-5 flex-col">
             <h1 className="font-bold text-3xl py-6">Create Thread</h1>
@@ -78,9 +75,7 @@ const CreateThread = () => {
             Post Thread
           </button>
         </form>
-      </section>
-
-      <Rightsidebar />
+      
     </div>
   );
 };
