@@ -36,7 +36,13 @@ module.exports.getThread = async (req, res, next) => {
       return res.status(400).json({ message: "Invalid thread ID" });
     }
 
-    const thread = await threadModel.findById(threadId).populate("author");
+    const thread = await threadModel.findById(threadId)
+      .populate("author")
+      .populate({
+        path: "children",
+        populate: { path: "author" }
+      });
+
     if (!thread) {
       return res.status(404).json({ message: "Thread not found" });
     }
@@ -56,3 +62,36 @@ module.exports.getAllThreads = async (req, res, next) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+module.exports.addComment = async (req, res, next) => {
+	try {
+	  const { text } = req.body;
+	  const author = req.user._id;
+	  const parentId = req.params.id
+
+	  if (!text || !author) {
+		throw new Error("Text and author are required");
+	  }
+  
+	  const parentThread = await threadModel.findById(parentId);
+	  if (!parentThread) {
+		return res.status(404).json({ message: "Parent thread not found" });
+	  }
+  
+	  
+	  const comment = await threadModel.create({
+		text,
+		author,
+		parentId,
+	  });
+  
+	  parentThread.children.push(comment._id);
+	  await parentThread.save();
+  
+	  res.status(201).json({ message: "Comment added successfully", comment });
+	} catch (error) {
+	  console.error("Error adding comment:", error);
+	  res.status(500).json({ message: error.message });
+	}
+  };
+  

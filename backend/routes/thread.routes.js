@@ -15,8 +15,8 @@ router.post(
 
 router.get("/:id", authMiddleware.authUser, threadController.getThread);
 
-// Add this route to fetch all threads
 router.get("/", authMiddleware.authUser, threadController.getAllThreads);
 
+router.post("/:id/comments",authMiddleware.authUser,threadController.addComment);
 
 module.exports = router; 

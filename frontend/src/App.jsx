@@ -27,7 +27,7 @@ const AppRoutes = () => {
 
       <Route element = {<RootLayout/>}>
       <Route
-        index
+        path="/"
         element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <Home />

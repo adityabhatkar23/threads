@@ -54,7 +54,7 @@ const ThreadDetails = () => {
             currentUserId={user.id}
           />
 
-          <div className="mt-10">
+          <div className="mt-10 flex flex-col w-full gap-4">
 
 		  {thread.children.map((childItem) => (
               <Threadcard

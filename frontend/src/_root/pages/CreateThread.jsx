@@ -28,7 +28,7 @@ const CreateThread = () => {
 
       console.log("Thread created successfully:", response.data);
       
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       console.error(
         "Error:",

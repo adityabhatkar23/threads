@@ -31,7 +31,7 @@ const Commentform = ({ threadId, currentUserImg, currentUserId }) => {
 
       console.log("Thread created successfully:", response.data);
 
-      navigate("/home");
+      navigate(`/thread/${threadId}`);
     } catch (error) {
       console.error(
         "Error:",

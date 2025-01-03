@@ -23,7 +23,7 @@ const UserLogin = () => {
 
       console.log("Login successful:", response.data);
       login(response.data.token, response.data.user);
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       console.error("Error:", error.response ? error.response.data : error.message);
     }

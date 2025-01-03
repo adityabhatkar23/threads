@@ -26,7 +26,9 @@ const Home = () => {
         <div className="w-full flex flex-col gap-8">
           <h1 className="font-bold text-3xl pt-6">All Threads </h1>
           <div className="threads-list flex gap-8 flex-col">
-            {threads.map((thread) => (
+            {threads
+              .filter((thread) => !thread.parentId)
+              .map((thread) => (
               
               <Threadcard
                 key={thread._id}

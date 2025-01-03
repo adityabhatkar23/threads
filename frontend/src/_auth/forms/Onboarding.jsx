@@ -46,7 +46,7 @@ const Onboarding = () => {
         login(response.data.token, response.data.user);
       }
       
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
     }
@@ -55,7 +55,7 @@ const Onboarding = () => {
   // Protect the route
   useEffect(() => {
     if (!user) {
-      navigate('/');
+      navigate('/login');
     }
   }, [user, navigate]);
 

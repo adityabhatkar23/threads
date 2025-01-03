@@ -22,7 +22,6 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    default: "https://api.dicebear.com/9.x/lorelei/svg",
   },
   link: String,
   password: {
@@ -50,6 +49,11 @@ userSchema.methods.comparePassword = async function (password) {
 userSchema.statics.hashPassword = async function (password) {
   return await bcrypt.hash(password, 10);
 };
+
+userSchema.pre('save', async function (next) {
+  this.avatar = `https://api.dicebear.com/9.x/open-peeps/svg?seed=${this.email}`
+  next(); 
+});
 
 const userModel = mongoose.model("User", userSchema);
 
